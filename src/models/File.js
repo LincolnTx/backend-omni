@@ -21,7 +21,9 @@ const File = new mongoose.Schema(
 //campo virtual para retornar url de acesso pra o client
 File.virtual("url").get(function() {
   // nao pode usar arrow function para poder acessar o this
-  return `http://localhost:3333/files/${encodeURIComponent(this.path)}`;
+  const url = process.env.URL || 'http://localhost:3333'; 
+
+  return `${url}/files/${encodeURIComponent(this.path)}`;
 });
 
 //cria um model chamado box e exporta esse modulo File
